@@ -1,0 +1,471 @@
+/* Netflix风格To-Do List 额外动画和视觉效果 */
+
+/* 全局动画定义 */
+@keyframes netflixIntro {
+    0% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(229, 9, 20, 0.8), 0 0 30px rgba(229, 9, 20, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+    }
+}
+
+@keyframes borderPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(229, 9, 20, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(229, 9, 20, 0);
+    }
+}
+
+@keyframes floatIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* 页面加载动画 */
+body {
+    animation: netflixIntro 1.5s ease-out;
+}
+
+/* Logo增强效果 */
+.logo-container h1 {
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-container h1::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite linear;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 标题动画 */
+header {
+    animation: floatIn 1s ease-out 0.5s both;
+}
+
+.tagline {
+    position: relative;
+    display: inline-block;
+}
+
+.tagline::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--netflix-red);
+    transition: width 0.5s ease, left 0.5s ease;
+}
+
+.tagline:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* 主内容区域增强 */
+.main-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(229, 9, 20, 0.1), transparent 70%);
+    pointer-events: none;
+}
+
+/* 添加任务表单增强 */
+.add-task-container {
+    position: relative;
+    z-index: 2;
+}
+
+.add-task-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--netflix-red), transparent);
+}
+
+#task-input:focus {
+    animation: borderPulse 2s infinite;
+}
+
+/* 按钮增强效果 */
+.add-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.add-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transition: left 0.5s ease;
+}
+
+.add-btn:hover::before {
+    left: 100%;
+}
+
+/* 任务项增强效果 */
+.task-item {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.task-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.task-item:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* 优先级标签增强 */
+.priority-high, .priority-medium, .priority-low {
+    position: relative;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.priority-high {
+    background-color: rgba(229, 9, 20, 0.1);
+}
+
+.priority-medium {
+    background-color: rgba(232, 124, 3, 0.1);
+}
+
+.priority-low {
+    background-color: rgba(70, 211, 105, 0.1);
+}
+
+/* 复选框增强 */
+.status-checkbox {
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.status-checkbox:checked {
+    transform: scale(1.2);
+    animation: pulse 0.5s;
+}
+
+/* 统计信息增强 */
+.stat-value {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.stat-value:hover {
+    transform: scale(1.2);
+    color: var(--netflix-red);
+}
+
+/* 模态框增强 */
+.modal-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(229, 9, 20, 0.1), transparent 70%);
+    pointer-events: none;
+}
+
+/* 空状态增强 */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--netflix-light-gray);
+    animation: floatIn 0.5s ease-out;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* 滚动条增强 */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--netflix-red-dark), var(--netflix-red));
+}
+
+/* 响应式设计增强 */
+@media (max-width: 768px) {
+    .logo-container h1 {
+        font-size: 3rem;
+    }
+    
+    .empty-state i {
+        font-size: 2.5rem;
+    }
+}
+
+/* 暗黑模式增强 */
+@media (prefers-color-scheme: dark) {
+    .main-content::before {
+        background: radial-gradient(circle at top right, rgba(229, 9, 20, 0.15), transparent 70%);
+    }
+    
+    .modal-content::before {
+        background: radial-gradient(circle at top left, rgba(229, 9, 20, 0.15), transparent 70%);
+    }
+}
+
+/* 任务完成动画 */
+@keyframes taskComplete {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.task-item.completed {
+    animation: taskComplete 0.5s ease;
+}
+
+/* 任务状态切换动画 */
+@keyframes taskCompletedAnimation {
+    0% {
+        transform: translateY(0) scale(1);
+        background-color: var(--netflix-medium-gray);
+    }
+    30% {
+        transform: translateY(-5px) scale(1.03);
+        background-color: rgba(70, 211, 105, 0.2);
+        box-shadow: 0 0 15px rgba(70, 211, 105, 0.3);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        background-color: var(--netflix-medium-gray);
+    }
+}
+
+@keyframes taskUncompletedAnimation {
+    0% {
+        transform: translateY(0) scale(1);
+        background-color: var(--netflix-medium-gray);
+    }
+    30% {
+        transform: translateY(-5px) scale(1.03);
+        background-color: rgba(229, 9, 20, 0.2);
+        box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        background-color: var(--netflix-medium-gray);
+    }
+}
+
+.task-completed-animation {
+    animation: taskCompletedAnimation 0.6s ease forwards;
+}
+
+.task-uncompleted-animation {
+    animation: taskUncompletedAnimation 0.6s ease forwards;
+}
+
+/* 删除任务动画 */
+@keyframes taskDelete {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+}
+
+.deleting {
+    animation: taskDelete 0.5s ease forwards;
+}
+
+/* 添加任务动画 */
+@keyframes taskAdd {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.adding {
+    animation: taskAdd 0.5s ease forwards;
+}
+
+/* 编辑任务动画 */
+@keyframes taskEdit {
+    0% {
+        transform: translateX(0);
+        background-color: var(--netflix-medium-gray);
+    }
+    25% {
+        transform: translateX(-5px);
+        background-color: rgba(52, 152, 219, 0.2);
+    }
+    50% {
+        transform: translateX(5px);
+        background-color: rgba(52, 152, 219, 0.3);
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.3);
+    }
+    75% {
+        transform: translateX(-5px);
+        background-color: rgba(52, 152, 219, 0.2);
+    }
+    100% {
+        transform: translateX(0);
+        background-color: var(--netflix-medium-gray);
+    }
+}
+
+.edited {
+    animation: taskEdit 1s ease forwards;
+}
+
+/* 3D效果增强 */
+.main-content {
+    transform: perspective(1000px) rotateX(1deg);
+    transform-origin: top center;
+    transition: transform 0.5s ease;
+}
+
+.main-content:hover {
+    transform: perspective(1000px) rotateX(0deg);
+}
+
+/* 按钮悬停效果增强 */
+.filter-btn, .modal-btn, .task-btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.filter-btn::after, .modal-btn::after, .task-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+.filter-btn:hover::after, .modal-btn:hover::after, .task-btn:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* 页脚增强 */
+footer {
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--netflix-red), transparent);
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix风格 To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <h1>NETLIST</h1>
+                <div class="logo-shadow"></div>
+            </div>
+            <p class="tagline">管理你的任务，像追剧一样上瘾</p>
+        </header>
+
+        <div class="main-content">
+            <div class="add-task-container">
+                <form id="task-form">
+                    <div class="input-group">
+                        <input type="text" id="task-input" placeholder="添加新任务..." required>
+                        <div class="priority-selector">
+                            <span class="priority-label">优先级</span>
+                            <div class="priority-options">
+                                <input type="radio" id="priority-high" name="priority" value="high" checked>
+                                <label for="priority-high">高</label>
+                                
+                                <input type="radio" id="priority-medium" name="priority" value="medium">
+                                <label for="priority-medium">中</label>
+                                
+                                <input type="radio" id="priority-low" name="priority" value="low">
+                                <label for="priority-low">低</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="add-btn">
+                            <i class="fas fa-plus"></i> 添加
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="pending">待办</button>
+                <button class="filter-btn" data-filter="completed">已完成</button>
+                <div class="sort-container">
+                    <select id="sort-select">
+                        <option value="priority">按优先级</option>
+                        <option value="date-added">按添加日期</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tasks-container">
+                <div class="tasks-header">
+                    <span class="task-status">状态</span>
+                    <span class="task-name">任务名称</span>
+                    <span class="task-priority">优先级</span>
+                    <span class="task-actions">操作</span>
+                </div>
+                <ul id="task-list">
+                    <!-- 任务将通过JavaScript动态添加 -->
+                </ul>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-label">总任务</span>
+                    <span id="total-tasks" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">待办</span>
+                    <span id="pending-tasks" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">已完成</span>
+                    <span id="completed-tasks" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">完成率</span>
+                    <span id="completion-rate" class="stat-value">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-detail-modal" id="task-detail-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-task-title">任务详情</h2>
+                <div class="task-details">
+                    <div class="detail-item">
+                        <span class="detail-label">状态:</span>
+                        <span id="modal-task-status">待办</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">优先级:</span>
+                        <span id="modal-task-priority">高</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">创建时间:</span>
+                        <span id="modal-task-date">2023-06-15 14:30</span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button id="modal-edit-btn" class="modal-btn edit-btn">编辑</button>
+                    <button id="modal-delete-btn" class="modal-btn delete-btn">删除</button>
+                    <button id="modal-toggle-btn" class="modal-btn toggle-btn">标记为已完成</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 NETLIST | 一个Netflix风格的To-Do List</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
